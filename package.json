@@ -1,0 +1,40 @@
+{
+  "name": "atomicbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --inspect -r dotenv/config src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtomicLoans/atomicbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtomicLoans/atomicbot/issues"
+  },
+  "homepage": "https://github.com/AtomicLoans/atomicbot#readme",
+  "dependencies": {
+    "@slack/web-api": "^5.8.1",
+    "@types/moment-timezone": "^0.5.13",
+    "agenda": "^3.1.0",
+    "axios": "^0.19.2",
+    "bignumber.js": "^9.0.0",
+    "moment-timezone": "^0.5.28",
+    "mongoose": "^5.9.13"
+  },
+  "devDependencies": {
+    "@types/agenda": "^2.0.7",
+    "@types/mongoose": "^5.7.16",
+    "@types/node": "^13.13.5",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.3",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^3.8.3"
+  }
+}
