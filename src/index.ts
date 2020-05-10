@@ -21,17 +21,3 @@ db?.once('open', async () => {
   await agenda.start();
   defineJobs(agenda);
 });
-
-(async () => {
-  // The result is cast to the interface
-  //   const res = (await web.chat.postMessage({
-  //     text: 'This is a test.',
-  //     channel,
-  //   })) as ChatPostMessageResult;
-  //   // Properties of the result are now typed
-  //   console.log(
-  //     `A message was posed to conversation ${res.channel} with id ${res.ts} which contains the message ${res.message}`
-  //   );
-  console.log('Hello 🌎!');
-  //   test();
-})();

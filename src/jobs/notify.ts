@@ -10,7 +10,6 @@ export function defineNotifyJob(agenda: Agenda) {
     const {
       attrs: { data },
     } = job;
-    console.log(`Notifying...`);
     await postMessage(data.text, data.blocks);
     done();
   });

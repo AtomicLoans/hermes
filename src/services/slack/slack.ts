@@ -17,15 +17,13 @@ export async function postMessage(
   blocks?: any,
   channel = CHANNEL
 ) {
-  // const res = (await web.chat.postMessage({
-  //   text,
-  //   blocks,
-  //   channel,
-  // })) as ChatPostMessageResult;
+  const res = (await web.chat.postMessage({
+    text,
+    blocks,
+    channel,
+  })) as ChatPostMessageResult;
 
-  // return res;
-
-  console.log(`Posted message: ${text}`);
+  return res;
 }
 
 export async function test() {
