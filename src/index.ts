@@ -1,7 +1,7 @@
 import { connect } from './database/database';
 import Agenda = require('agenda');
 import { defineJobs } from './jobs';
-import { test } from './services/slack/slack';
+import JobType from './jobs/jobs.enums';
 
 const { MONGO_URI } = process.env;
 
@@ -20,4 +20,6 @@ db?.once('open', async () => {
 
   await agenda.start();
   defineJobs(agenda);
+
+  agenda.every('5 minutes', JobType.Fetch);
 });
