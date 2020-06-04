@@ -1,23 +1,24 @@
 {
-  "name": "atomicbot",
+  "name": "hermes",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --type-check --inspect -r dotenv/config src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtomicLoans/atomicbot.git"
+    "url": "git+https://github.com/AtomicLoans/hermes.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AtomicLoans/atomicbot/issues"
+    "url": "https://github.com/AtomicLoans/hermes/issues"
   },
-  "homepage": "https://github.com/AtomicLoans/atomicbot#readme",
+  "homepage": "https://github.com/AtomicLoans/hermes#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.1.1",
     "@slack/web-api": "^5.8.1",

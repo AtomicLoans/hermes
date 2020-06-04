@@ -1,35 +1,35 @@
 import Agenda = require('agenda');
-import JobType, { NotifyJobType } from './jobs.enums';
+import JobType, { LoanNotifyJobType } from './jobs.enums';
 import { Loan } from '../services/atomicloans/loan';
 import { TelegramModel } from '../database/telegram/telegram.model';
 import AlertTypes from './alerts.enums';
 import { EmailModel } from '../database/email/email.model';
 import { sendEmail } from '../services/sendgrid';
 
-import TelegramNotify from '../services/telegram/notify';
-import SlackNotify from '../services/slack/notify';
+import { notifyLoan as telegramNotifyLoan } from '../services/telegram/notify';
+import { notifyLoan as slackNotifyLoan } from '../services/slack/notify';
 
 export function defineNotifyJob(agenda: Agenda) {
   console.log('Defining notify job...');
 
-  agenda.define(JobType.Notify, async (job, done) => {
+  agenda.define(JobType.NotifyLoan, async (job, done) => {
     const { data } = job.attrs;
 
-    Object.values(NotifyJobType).forEach((jobType) =>
+    Object.values(LoanNotifyJobType).forEach((jobType) =>
       agenda.now(jobType, data)
     );
 
     done();
   });
 
-  agenda.define(JobType.SlackNotify, async (job, done) => {
+  agenda.define(JobType.SlackNotifyLoan, async (job, done) => {
     const { key, loan } = job.attrs.data as { key: AlertTypes; loan: Loan };
 
-    await SlackNotify(loan, key);
+    await slackNotifyLoan(loan, key);
     done();
   });
 
-  agenda.define(JobType.TelegramNotify, async (job, done) => {
+  agenda.define(JobType.TelegramNotifyLoan, async (job, done) => {
     const { key, loan } = job.attrs.data as { key: AlertTypes; loan: Loan };
     const { borrowerPrincipalAddress } = loan;
 
@@ -38,13 +38,13 @@ export function defineNotifyJob(agenda: Agenda) {
     });
 
     telegrams.forEach(({ telegramId }) => {
-      TelegramNotify(telegramId, loan, key);
+      telegramNotifyLoan(telegramId, loan, key);
     });
 
     done();
   });
 
-  agenda.define(JobType.EmailNotify, async (job, done) => {
+  agenda.define(JobType.EmailNotifyLoan, async (job, done) => {
     const { key, loan } = job.attrs.data as { key: AlertTypes; loan: Loan };
     const { borrowerPrincipalAddress } = loan;
 

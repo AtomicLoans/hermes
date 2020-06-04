@@ -21,7 +21,7 @@ const messages: MessageTemplating = {
     } ${loan.principal.toUpperCase()}* from the loan.`,
 };
 
-export default async function notify(
+export async function notifyLoan(
   telegramId: number,
   loan: Loan,
   alertType: AlertType

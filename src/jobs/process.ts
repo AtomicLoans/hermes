@@ -69,6 +69,6 @@ export function defineProcessJob(agenda: Agenda) {
 
     await loanDoc.save();
 
-    agenda.now(JobType.Notify, { key, loan });
+    agenda.now(JobType.NotifyLoan, { key, loan });
   }
 }

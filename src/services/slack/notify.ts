@@ -12,7 +12,7 @@ const messages = {
   [AlertType.COLLATERAL_LOCKED]: 'Collateral has been locked.',
 };
 
-export default async function notify(loan: Loan, alertType: AlertType) {
+export async function notifyLoan(loan: Loan, alertType: AlertType) {
   const text = messages[alertType];
   const { borrowerPrincipalAddress: address } = loan;
 
