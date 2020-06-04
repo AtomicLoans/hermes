@@ -1,6 +1,7 @@
-enum AlertTypes {
+enum AlertType {
   NEAR_EXPIRY = 'NEAR_EXPIRY',
   NEAR_LIQUIDATION = 'NEAR_LIQUIDATION',
+  COLLATERAL_LOCKED = 'COLLATERAL_LOCKED',
 }
 
-export default AlertTypes;
+export default AlertType;

@@ -1,10 +1,6 @@
 import Agenda = require('agenda');
 import JobType from './jobs.enums';
-import Axios from 'axios';
-
-const axios = Axios.create({
-  baseURL: process.env.ARBITER_URI,
-});
+import axios from '../utils/http';
 
 export function defineFetchJob(agenda: Agenda) {
   console.log('Defining fetch job...');
@@ -19,6 +15,4 @@ export function defineFetchJob(agenda: Agenda) {
 
     done();
   });
-
-  agenda.now(JobType.Fetch);
 }

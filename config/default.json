@@ -1,0 +1,19 @@
+{
+  "Sendgrid": {
+    "alerts": {
+      "NEAR_EXPIRY": {
+        "templateId": "d-f46a97903db74ce393525f966fa3ec9f"
+      },
+      "NEAR_LIQUIDATION": {
+        "templateId": "d-e4be0271ab164fc2af806842c4328a1f"
+      },
+      "COLLATERAL_LOCKED": {
+        "templateId": "d-65032763a8d34c85877e53282ac515b2"
+      },
+      "REPAYMENT_ACCEPTED": {
+        "templateId": "d-f58dab66f32d433db024b097fecc4bf8"
+      }
+    },
+    "unsubscribeId": 13544
+  }
+}

@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { setIntervalAsync } from 'set-interval-async/fixed';
+
+let price = 0;
 
 async function BlockchainInfo() {
   const { data } = await axios.get(
@@ -102,6 +105,15 @@ const median = (arr: number[]) => {
   return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
 };
 
+async function updatePrice() {
+  price = await getMedianBtcPrice();
+  console.info(`Price updated. BTC = $${price.toFixed(2)} USD`);
+}
+
+export function getBTCPrice() {
+  return price;
+}
+
 export async function getMedianBtcPrice() {
   const prices = await Promise.all(
     Object.values(apis).map((fn) => fn().catch((e) => e))
@@ -112,3 +124,6 @@ export async function getMedianBtcPrice() {
 
   return median(validPrices);
 }
+
+setIntervalAsync(updatePrice, 1000 * 30);
+updatePrice();

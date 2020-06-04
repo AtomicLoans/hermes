@@ -1,18 +1,26 @@
 import moment from 'moment-timezone';
 import { formatValue } from '../../utils/currency';
+import { Loan } from '../atomicloans/loan';
+import telegram from '../telegram';
 
 export function generateLoanBlocks(
-  text: string,
-  loanId: number,
-  principal: string,
-  expiration: number,
-  amount: number,
-  collateralizationRatio: number,
-  liquidationPrice: number,
-  borrower: string
+  loan: Loan,
+  text: string = '',
+  email?: string,
+  telegram?: string
 ) {
+  const {
+    loanId,
+    principal,
+    loanExpiration,
+    principalAmount,
+    collateralizationRatio,
+    liquidationPrice,
+    borrowerPrincipalAddress,
+  } = loan;
+
   const expirationString = moment
-    .unix(expiration)
+    .unix(loanExpiration)
     .tz('America/Toronto')
     .format('LLLL z');
 
@@ -37,7 +45,9 @@ export function generateLoanBlocks(
         },
         {
           type: 'mrkdwn',
-          text: `*Amount:*\n${formatValue(amount)} ${principal.toUpperCase()}`,
+          text: `*Amount:*\n${formatValue(
+            principalAmount
+          )} ${principal.toUpperCase()}`,
         },
         {
           type: 'mrkdwn',
@@ -49,7 +59,15 @@ export function generateLoanBlocks(
         },
         {
           type: 'mrkdwn',
-          text: `*Borrower:*\n<https://etherscan.io/address/${borrower}|${borrower}>`,
+          text: `*Borrower:*\n<https://etherscan.io/address/${borrowerPrincipalAddress}|${borrowerPrincipalAddress}>`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*Email:*\n${email || 'N/A'}`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*Telegram*:\n${telegram ? `https://t.me/${telegram}` : 'N/A'}`,
         },
       ],
     },
