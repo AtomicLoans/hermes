@@ -22,4 +22,4 @@ spec:
     - port: 80
       targetPort: 4000
   selector:
-    app: hermes-test
+    app: hermes
