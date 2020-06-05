@@ -38,5 +38,5 @@ export async function sendEmail(
   console.log(alertType);
   console.log(loan.loanId);
   console.log('---');
-  // await send(emails, loan, sendgridConfig.alerts[alertType].templateId);
+  await send(emails, loan, sendgridConfig.alerts[alertType].templateId);
 }
