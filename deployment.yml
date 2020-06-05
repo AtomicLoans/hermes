@@ -33,7 +33,7 @@ spec:
           image: gcr.io/PROJECT_ID/IMAGE:TAG
           envFrom:
             - secretRef:
-                name: hermes_secrets
+                name: hermes-secrets
           ports:
             - containerPort: 5000
           resources:
