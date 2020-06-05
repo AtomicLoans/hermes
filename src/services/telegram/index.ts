@@ -90,11 +90,9 @@ function register() {
     }
   });
 
-  bot.command('help', (ctx) => {
-    console.log(ctx);
-
-    ctx.replyWithMarkdown(`*yay*`);
-    ctx.reply(`I'm here to give you updates on any active loans.`);
+  bot.command('help', async (ctx) => {
+    await ctx.reply(`/loans - View active loans.`);
+    await ctx.reply(`/register - Register Ethereum address to track loans for`);
   });
 
   bot.on('text', (ctx) => {
