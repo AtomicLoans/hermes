@@ -10,6 +10,10 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+  res.send('Hermes – Notification Server');
+});
+
 app.post('/mailer', async (req, res, next) => {
   const {
     body: { address, email },
