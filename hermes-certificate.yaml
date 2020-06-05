@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1beta2\1
+kind: ManagedCertificate
+metadata:
+  name: hermes-certificate
+spec:
+  domains:
+    - hermes.atomic.loans

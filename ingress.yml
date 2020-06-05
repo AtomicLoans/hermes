@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hermes-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: hermes
+    networking.gke.io/managed-certificates: hermes-certificate
+spec:
+  backend:
+    serviceName: hermes-service
+    servicePort: 80

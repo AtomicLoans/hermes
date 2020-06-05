@@ -17,7 +17,7 @@ kind: Service
 metadata:
   name: hermes-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 80
       targetPort: 4000
