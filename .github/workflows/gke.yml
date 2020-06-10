@@ -74,8 +74,9 @@ jobs:
       # Deploy the Docker image to the GKE cluster
       - name: Deploy
         run: |-
+          cd ./deploy
           ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
           ./kustomize edit add secret hermes-secrets --from-literal="SLACK_TOKEN=${{ secrets.SLACK_TOKEN }}" --from-literal="SENDGRID_TOKEN=${{ secrets.SENDGRID_TOKEN }}" --from-literal="TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" --from-literal="ARBITER_URI=${{ secrets.ARBITER_URI }}" --from-literal="MONGO_URI=${{ secrets.MONGO_URI }}" --from-literal="PORT=${{ secrets.PORT }}"
-          ./kustomize build ./deploy | kubectl apply -f -
+          ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$IMAGE
           kubectl get services -o wide
