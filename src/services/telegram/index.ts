@@ -68,8 +68,12 @@ function register() {
 
     const loans = await getLoansFor(telegram.address, true);
 
-    for (const loan of loans) {
-      await ctx.replyWithMarkdown(generateLoanBlocks(loan));
+    if (loans.length > 0) {
+      for (const loan of loans) {
+        await ctx.replyWithMarkdown(generateLoanBlocks(loan));
+      }
+    } else {
+      ctx.reply(`You have no active loans.`);
     }
   });
 
