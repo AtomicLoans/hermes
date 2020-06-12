@@ -4,11 +4,21 @@ import cors from 'cors';
 import { EmailModel } from '../database/email/email.model';
 import HttpStatusCode from './HttpStatusCode.enum';
 import { verifyTimestampedSignature } from '../utils/signatures';
+import TelegramService from '../services/telegram';
 import bodyParser from 'body-parser';
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(
+  TelegramService.bot.webhookCallback(
+    '/atomic-bot-telegraf-webhook-callback-62728'
+  )
+);
+
+TelegramService.bot.telegram.setWebhook(
+  'https://hermes.atomic.loans/atomic-bot-telegraf-webhook-callback-62728'
+);
 
 app.get('/', (req, res) => {
   res.send('Hermes – Notification Server');

@@ -120,8 +120,6 @@ function register() {
     ctx.session.action = null;
     ctx.reply('Unrecognized command. Type /help for commands.');
   });
-
-  bot.launch();
 }
 
 export async function sendMessage(chatId: number | string, text: string) {
@@ -156,4 +154,4 @@ const track = async (ctx: TContext, address: string) => {
   }
 };
 
-export default { register };
+export default { register, bot };
