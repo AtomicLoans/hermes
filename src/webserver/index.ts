@@ -11,19 +11,16 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(
-  TelegramService.bot.webhookCallback(
-    '/atomic-bot-telegraf-webhook-callback-62728'
-  )
-);
+app.post(`/atomic-bot-telegraf-webhook-callback-62728`, (req, res) => {
+  return TelegramService.bot.handleUpdate(req.body, res);
+});
 
-TelegramService.bot.telegram.setWebhook(
-  'https://hermes.atomic.loans/atomic-bot-telegraf-webhook-callback-62728'
-);
-
-TelegramService.bot.startWebhook(
-  'https://hermes.atomic.loans/atomic-bot-telegraf-webhook-callback-62728'
-);
+TelegramService.bot.launch({
+  webhook: {
+    domain: 'hermes.atomic.loans',
+    hookPath: '/atomic-bot-telegraf-webhook-callback-62728',
+  },
+});
 
 app.get('/', (req, res) => {
   res.send('Hermes – Notification Server');
