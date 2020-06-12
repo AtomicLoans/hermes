@@ -35,7 +35,11 @@ export function defineProcessJob(agenda: Agenda) {
     }
 
     if (status === Status.Withdrawn && loan.collateralizationRatio <= 150) {
-      await sendAlert(AlertTypes.NEAR_LIQUIDATION, loan);
+      if (loan.liquidationPrice >= 1.2676506002282294e30) {
+        console.error('[ERROR] Insane liquidation price detected');
+      } else {
+        await sendAlert(AlertTypes.NEAR_LIQUIDATION, loan);
+      }
     }
 
     if (status === Status.Approved) {
