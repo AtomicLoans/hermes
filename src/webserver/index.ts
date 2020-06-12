@@ -8,6 +8,9 @@ import TelegramService from '../services/telegram';
 import bodyParser from 'body-parser';
 
 const app = express();
+
+TelegramService.register();
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -17,6 +20,10 @@ app.use(
 );
 
 TelegramService.bot.telegram.setWebhook(
+  'https://hermes.atomic.loans/atomic-bot-telegraf-webhook-callback-62728'
+);
+
+TelegramService.bot.startWebhook(
   'https://hermes.atomic.loans/atomic-bot-telegraf-webhook-callback-62728'
 );
 
