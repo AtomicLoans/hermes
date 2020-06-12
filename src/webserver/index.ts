@@ -9,8 +9,6 @@ import bodyParser from 'body-parser';
 
 const app = express();
 
-TelegramService.register();
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(

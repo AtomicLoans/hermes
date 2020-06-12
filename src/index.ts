@@ -14,6 +14,8 @@ if (!MONGO_URI) {
 
 const db = connect(MONGO_URI);
 db?.once('open', async () => {
+  TelegramService.register();
+
   const agenda = new Agenda({ mongo: db?.collection('agendaJobs').conn.db });
 
   agenda.on('fail', (err, job) => {
