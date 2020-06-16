@@ -33,7 +33,7 @@ spec:
           image: gcr.io/PROJECT_ID/IMAGE:TAG
           env:
             - name: NODE_ENV
-              value: "PRODUCTION"
+              value: 'production'
           envFrom:
             - secretRef:
                 name: hermes-secrets
