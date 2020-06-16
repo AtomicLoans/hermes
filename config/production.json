@@ -1,0 +1,19 @@
+{
+  "BalanceMonitoring": {
+    "addresses": [
+      {
+        "name": "Mainnet ETHBot",
+        "address": "0xBbbfB8ADF1Ad21175601FeF40d6Cd3AF8e2DC2Dc",
+        "alertBalance": 0.3
+      },
+      {
+        "name": "Mainnet Arbiter",
+        "address": "0x0E462F46c1363366D520649681a0bB8083f92F61",
+        "alertBalance": 0.3
+      }
+    ]
+  },
+  "RPC": {
+    "ETH": "https://mainnet.infura.io/v3/015b96c502854443873de301076c1730"
+  }
+}

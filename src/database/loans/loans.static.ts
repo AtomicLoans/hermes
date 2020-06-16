@@ -1,7 +1,7 @@
-import { ILoanModal } from './loans.types';
+import { ILoanModel } from './loans.types';
 
 export async function findOneOrCreate(
-  this: ILoanModal,
+  this: ILoanModel,
   loanId: number,
   principal: string
 ) {

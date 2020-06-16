@@ -1,9 +1,5 @@
 import { Document, Model, Types } from 'mongoose';
-
-interface IAlert {
-  key: string;
-  lastUpdate: Date;
-}
+import { IAlert } from '../types';
 
 export interface ILoan {
   loanId: number;
@@ -12,7 +8,7 @@ export interface ILoan {
 }
 
 export interface ILoanDocument extends ILoan, Document {}
-export interface ILoanModal extends Model<ILoanDocument> {
+export interface ILoanModel extends Model<ILoanDocument> {
   findOneOrCreate: (
     loanId: number,
     principal: string

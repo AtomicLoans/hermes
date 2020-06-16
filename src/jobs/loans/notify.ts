@@ -1,16 +1,16 @@
 import Agenda = require('agenda');
-import JobType, { LoanNotifyJobType } from './jobs.enums';
-import { Loan } from '../services/atomicloans/loan';
-import { TelegramModel } from '../database/telegram/telegram.model';
-import AlertTypes from './alerts.enums';
-import { EmailModel } from '../database/email/email.model';
-import { sendEmail } from '../services/sendgrid';
+import JobType, { LoanNotifyJobType } from '../jobs.enums';
+import { Loan } from '../../services/atomicloans/loan';
+import { TelegramModel } from '../../database/telegram/telegram.model';
+import AlertTypes from '../alerts.enums';
+import { EmailModel } from '../../database/email/email.model';
+import { sendEmail } from '../../services/sendgrid';
 
-import { notifyLoan as telegramNotifyLoan } from '../services/telegram/notify';
-import { notifyLoan as slackNotifyLoan } from '../services/slack/notify';
+import { notifyLoan as telegramNotifyLoan } from '../../services/telegram/notify';
+import { notifyLoan as slackNotifyLoan } from '../../services/slack/notify';
 
-export function defineNotifyJob(agenda: Agenda) {
-  console.log('Defining notify job...');
+export function defineNotifyLoanJob(agenda: Agenda) {
+  console.log('Defining notify loan job...');
 
   agenda.define(JobType.NotifyLoan, async (job, done) => {
     const { data } = job.attrs;

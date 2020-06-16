@@ -5,17 +5,17 @@ import { generateLoanBlocks } from './blocks';
 import { sendMessage } from '.';
 
 type MessageTemplating = {
-  [key in AlertType]: (loan: Loan) => string;
+  [key in AlertType]?: (loan: Loan) => string;
 };
 
 const messages: MessageTemplating = {
-  [AlertType.NEAR_LIQUIDATION]: () =>
+  [AlertType.NearLiquidation]: () =>
     `A loan is at risk of being liquidated. Repay a partial amount to increase collateralization:`,
-  [AlertType.NEAR_EXPIRY]: (loan) =>
+  [AlertType.NearExpiry]: (loan) =>
     `A loan is about to expire ${moment(
       loan.loanExpiration * 1000
     ).fromNow()}:`,
-  [AlertType.COLLATERAL_LOCKED]: (loan) =>
+  [AlertType.CollateralLocked]: (loan) =>
     `Your Bitcoin collateral deposit has been confirmed and you may now withdraw *${
       loan.principalAmount
     } ${loan.principal.toUpperCase()}* from the loan.`,
@@ -26,6 +26,9 @@ export async function notifyLoan(
   loan: Loan,
   alertType: AlertType
 ) {
-  const message = generateLoanBlocks(loan, messages[alertType](loan));
+  const template = messages[alertType];
+  if (!template) return;
+
+  const message = generateLoanBlocks(loan, template(loan));
   sendMessage(telegramId, message);
 }

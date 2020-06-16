@@ -1,7 +1,15 @@
-enum AlertType {
-  NEAR_EXPIRY = 'NEAR_EXPIRY',
-  NEAR_LIQUIDATION = 'NEAR_LIQUIDATION',
-  COLLATERAL_LOCKED = 'COLLATERAL_LOCKED',
+enum LoanAlertType {
+  NearExpiry = 'NEAR_EXPIRY',
+  NearLiquidation = 'NEAR_LIQUIDATION',
+  CollateralLocked = 'COLLATERAL_LOCKED',
 }
 
+enum GeneralAlertType {
+  AddressLowBalance = 'ADDRESS_LOW_BALANCE',
+}
+
+type AlertType = GeneralAlertType | LoanAlertType;
+const AlertType = { ...GeneralAlertType, ...LoanAlertType };
+
+export { GeneralAlertType, LoanAlertType };
 export default AlertType;

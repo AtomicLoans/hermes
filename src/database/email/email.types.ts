@@ -7,4 +7,4 @@ export interface IEmail {
 }
 
 export interface IEmailDocument extends IEmail, Document {}
-export interface IEmailModal extends Model<IEmailDocument> {}
+export interface IEmailModel extends Model<IEmailDocument> {}

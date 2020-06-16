@@ -6,4 +6,4 @@ export interface ITelegram {
 }
 
 export interface ITelegramDocument extends ITelegram, Document {}
-export interface ITelegramModal extends Model<ITelegramDocument> {}
+export interface ITelegramModel extends Model<ITelegramDocument> {}

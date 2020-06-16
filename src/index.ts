@@ -4,6 +4,9 @@ import { defineJobs } from './jobs';
 import JobType from './jobs/jobs.enums';
 import TelegramService from './services/telegram';
 import './webserver';
+import config from 'config';
+
+const intervalsConfig: any = config.get('Intervals');
 
 const { MONGO_URI } = process.env;
 
@@ -25,6 +28,8 @@ db?.once('open', async () => {
   await agenda.start();
   defineJobs(agenda);
 
-  agenda.every('5 minutes', JobType.Fetch);
+  agenda.now(JobType.CheckBalances);
+
+  agenda.every(intervalsConfig.get('fetchLoans'), JobType.FetchLoans);
   agenda.every('1 day', JobType.Cleanup);
 });

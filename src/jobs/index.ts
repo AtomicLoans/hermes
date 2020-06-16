@@ -1,14 +1,18 @@
-import { defineProcessJob } from './process';
-import { defineFetchJob } from './fetch';
-
-import Agenda = require('agenda');
-import { defineNotifyJob } from './notify';
+import { defineProcessLoanJob } from './loans/process';
+import { defineFetchLoansJob } from './loans/fetch';
+import { defineNotifyLoanJob } from './loans/notify';
+import { defineCheckBalancesJob } from './balance/check';
+import { defineNotifyBalanceJob } from './balance/notify';
 import { defineCleanupJob } from './cleanup';
 
+import Agenda = require('agenda');
+
 const jobDefiners = [
-  defineFetchJob,
-  defineProcessJob,
-  defineNotifyJob,
+  defineFetchLoansJob,
+  defineProcessLoanJob,
+  defineNotifyLoanJob,
+  defineCheckBalancesJob,
+  defineNotifyBalanceJob,
   defineCleanupJob,
 ];
 

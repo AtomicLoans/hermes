@@ -15,5 +15,9 @@
       }
     },
     "unsubscribeId": 13544
+  },
+  "Intervals": {
+    "fetchLoans": "1 minutes",
+    "checkBalances": "1 minutes"
   }
 }

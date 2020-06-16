@@ -1,0 +1,14 @@
+{
+  "BalanceMonitoring": {
+    "addresses": [
+      {
+        "name": "[THIS IS A TEST] Arbiter",
+        "address": "0x84CB495a05A39445d3DD90f91E15d8D738eDa457",
+        "alertBalance": 0.6
+      }
+    ]
+  },
+  "RPC": {
+    "ETH": "https://kovan.infura.io/v3/015b96c502854443873de301076c1730"
+  }
+}

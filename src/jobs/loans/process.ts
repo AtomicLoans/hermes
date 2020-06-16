@@ -1,22 +1,19 @@
 import Agenda = require('agenda');
 import moment from 'moment-timezone';
-import JobType from './jobs.enums';
-import { LoanModel } from '../database/loans/loans.model';
-import AlertTypes from './alerts.enums';
-import { getLiquidationValues, buildLoan } from '../utils/loans';
-import { getMedianBtcPrice, getBTCPrice } from '../utils/prices';
-import { generateLoanBlocks } from '../services/slack/blocks';
-import { Loan, Status, RawLoan } from '../services/atomicloans/loan';
+import JobType from '../jobs.enums';
+import { LoanModel } from '../../database/loans/loans.model';
+import AlertTypes from '../alerts.enums';
+import { getLiquidationValues, buildLoan } from '../../utils/loans';
+import { getMedianBtcPrice, getBTCPrice } from '../../utils/prices';
+import { generateLoanBlocks } from '../../services/slack/blocks';
+import { Loan, Status, RawLoan } from '../../services/atomicloans/loan';
+import { FrequencySettings } from '../types';
+import { shouldNotify } from '../../utils/frequency';
 
-interface FrequencySettings {
-  once?: boolean;
-  everyNDays?: number;
-}
-
-export function defineProcessJob(agenda: Agenda) {
+export function defineProcessLoanJob(agenda: Agenda) {
   console.log('Defining process job...');
 
-  agenda.define(JobType.Process, async (job, done) => {
+  agenda.define(JobType.ProcessLoan, async (job, done) => {
     // console.log('Processing...');
     const rawLoan = job.attrs.data as RawLoan;
     const loan = buildLoan(rawLoan);
@@ -31,19 +28,19 @@ export function defineProcessJob(agenda: Agenda) {
       status === Status.Withdrawn &&
       loanExpirationMoment.diff(moment(), 'days') < 3
     ) {
-      await sendAlert(AlertTypes.NEAR_EXPIRY, loan);
+      await sendAlert(AlertTypes.NearExpiry, loan);
     }
 
     if (status === Status.Withdrawn && loan.collateralizationRatio <= 150) {
       if (loan.liquidationPrice >= 1.2676506002282294e30) {
         console.error('[ERROR] Insane liquidation price detected');
       } else {
-        await sendAlert(AlertTypes.NEAR_LIQUIDATION, loan);
+        await sendAlert(AlertTypes.NearLiquidation, loan);
       }
     }
 
     if (status === Status.Approved) {
-      await sendAlert(AlertTypes.COLLATERAL_LOCKED, loan, { once: true });
+      await sendAlert(AlertTypes.CollateralLocked, loan, { once: true });
     }
 
     done();
@@ -60,12 +57,7 @@ export function defineProcessJob(agenda: Agenda) {
     const alert = loanDoc.alerts.find((alert) => alert.key === key);
 
     if (alert) {
-      if (frequency.once) return;
-      if (
-        moment().diff(moment(alert.lastUpdate), 'days') < frequency.everyNDays!
-      )
-        return;
-
+      if (!shouldNotify(alert, frequency)) return;
       alert.lastUpdate = new Date();
     } else {
       loanDoc.alerts.push({ key, lastUpdate: new Date() });

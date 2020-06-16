@@ -31,6 +31,9 @@ spec:
       containers:
         - name: hermes
           image: gcr.io/PROJECT_ID/IMAGE:TAG
+          env:
+            - name: NODE_ENV
+              value: "PRODUCTION"
           envFrom:
             - secretRef:
                 name: hermes-secrets

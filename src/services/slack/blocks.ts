@@ -2,6 +2,7 @@ import moment from 'moment-timezone';
 import { formatValue } from '../../utils/currency';
 import { Loan } from '../atomicloans/loan';
 import telegram from '../telegram';
+import { BN } from 'ethereumjs-util';
 
 export function generateLoanBlocks(
   loan: Loan,
@@ -82,6 +83,39 @@ export function generateLoanBlocks(
             text: 'View Loan',
           },
           url: `https://atomic.loans/app/borrow/${principal.toUpperCase()}/${loanId}`,
+        },
+      ],
+    },
+  ];
+}
+
+export function generateLowBalanceBlocks(
+  name: string,
+  address: string,
+  balance: number
+) {
+  return [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: ':alert: Low Ether Balance! :alert:',
+      },
+    },
+    {
+      type: 'section',
+      fields: [
+        {
+          type: 'mrkdwn',
+          text: `*Name:*\n${name}`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*Balance:*\n${balance} ETH`,
+        },
+        {
+          type: 'mrkdwn',
+          text: `*Address:*\n<https://etherscan.io/address/${address}|${address}>`,
         },
       ],
     },

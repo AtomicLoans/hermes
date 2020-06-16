@@ -33,10 +33,13 @@ export async function sendEmail(
   alertType: AlertTypes,
   loan: Loan
 ) {
+  const templateId = sendgridConfig.alerts[alertType]?.templateId;
+  if (!templateId) return;
+
   console.log('---');
   console.log(emails);
   console.log(alertType);
   console.log(loan.loanId);
   console.log('---');
-  await send(emails, loan, sendgridConfig.alerts[alertType].templateId);
+  await send(emails, loan, templateId);
 }

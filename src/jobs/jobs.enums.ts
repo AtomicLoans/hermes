@@ -1,17 +1,24 @@
 export enum LoanNotifyJobType {
-  EmailNotifyLoan = 'notify:loan:email',
-  TelegramNotifyLoan = 'notify:loan:telegram',
-  SlackNotifyLoan = 'notify:loan:slack',
+  EmailNotifyLoan = 'loan:notify:email',
+  TelegramNotifyLoan = 'loan:notify:telegram',
+  SlackNotifyLoan = 'loan:notify:slack',
+}
+
+export enum GeneralLoanJobType {
+  ProcessLoan = 'loan:process',
+  NotifyLoan = 'loan:notify',
+  FetchLoans = 'loan:fetch',
 }
 
 export enum GeneralJobType {
-  Fetch = 'fetch',
-  Process = 'process',
-  NotifyLoan = 'notify:loan',
+  CheckBalances = 'balance:check',
+  NotifyBalance = 'balance:notify',
   Cleanup = 'cleanup',
 }
 
-type JobType = LoanNotifyJobType | GeneralJobType;
-const JobType = { ...GeneralJobType, ...LoanNotifyJobType };
+type LoanJobType = GeneralLoanJobType | LoanNotifyJobType;
+type JobType = GeneralJobType | LoanJobType;
+const LoanJobType = { ...GeneralLoanJobType, ...LoanNotifyJobType };
+const JobType = { ...GeneralJobType, ...LoanJobType };
 
 export default JobType;

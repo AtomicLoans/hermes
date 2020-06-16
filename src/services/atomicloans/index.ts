@@ -16,7 +16,7 @@ export async function getLoansFor(
   const loans = await getLoans();
   const borrowerLoans = loans
     .filter(
-      (loan: RawLoan) =>
+      (loan) =>
         loan.borrowerPrincipalAddress === borrowerAddress &&
         (active ? INACTIVE_STATES.indexOf(loan.status) === -1 : true)
     )
