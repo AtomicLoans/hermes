@@ -28,8 +28,7 @@ db?.once('open', async () => {
   await agenda.start();
   defineJobs(agenda);
 
-  agenda.now(JobType.CheckBalances);
-
+  agenda.every(intervalsConfig.get('checkBalances'), JobType.CheckBalances);
   agenda.every(intervalsConfig.get('fetchLoans'), JobType.FetchLoans);
   agenda.every('1 day', JobType.Cleanup);
 });
