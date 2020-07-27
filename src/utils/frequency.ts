@@ -7,13 +7,8 @@ export function shouldNotify(
   frequencySettings: FrequencySettings
 ) {
   if (frequencySettings.once) return false;
-  if (
-    !(
-      moment().diff(moment(alert.lastUpdate), 'days') <
-      frequencySettings.everyNDays!
-    )
-  ) {
-    return false;
-  }
-  return true;
+  return (
+    moment().diff(moment(alert.lastUpdate), 'days') >
+    frequencySettings.everyNDays!
+  );
 }
