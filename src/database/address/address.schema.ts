@@ -6,7 +6,7 @@ const AddressSchema = new Schema({
     type: String,
     index: true,
   },
-  alerts: [{ key: String, lastUpdated: { type: Date, default: Date.now } }],
+  alerts: [{ key: String, lastUpdate: { type: Date, default: Date.now } }],
 });
 
 AddressSchema.statics.findOneOrCreate = findOneOrCreate;

@@ -4,7 +4,7 @@ import { findOneOrCreate } from './loans.static';
 const LoanSchema = new Schema({
   loanId: Number,
   principal: String,
-  alerts: [{ key: String, lastUpdated: { type: Date, default: Date.now } }],
+  alerts: [{ key: String, lastUpdate: { type: Date, default: Date.now } }],
 });
 
 LoanSchema.index({ loanId: 1, principal: 1 }, { unique: true });
